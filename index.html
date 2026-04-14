@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TL K Bolo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Comic Sans MS', cursive;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ff4d4d, #ffcc00);
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.4s ease;
+    }
+
+    .container {
+      text-align: center;
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    h1 {
+      font-size: 60px;
+      animation: bounce 1s infinite alternate;
+      text-shadow: 3px 3px 0 #000;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 20px;
+      animation: shake 0.5s infinite;
+    }
+
+    #boloBtn {
+      position: absolute;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 50px;
+      background: #000;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #boloBtn:hover {
+      background: #fff;
+      color: #000;
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 30px;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-30px); }
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>TL K BOLO 😂🔥</h1>
+  <p id="text">Try clicking the button 😏</p>
+</div>
+
+<button id="boloBtn">Bolo!!!</button>
+
+<script>
+  const jokes = [
+    "Tu legend hai... bas tera WiFi slow hai 😭",
+    "Life set hoti... agar tu thoda serious hota 🤡",
+    "Crush tujhe dekh ke offline ho jati hai 😂",
+    "Tu developer hai ya bug generator? 🐛",
+    "Salary nahi, sirf experience mil raha hai 😭"
+  ];
+
+  const btn = document.getElementById('boloBtn');
+
+  function moveButton() {
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = Math.random() * (window.innerHeight - 60);
+
+    btn.style.left = x + 'px';
+    btn.style.top = y + 'px';
+  }
+
+  function changeBackground() {
+    const colors = [
+      'linear-gradient(135deg, #ff4d4d, #ffcc00)',
+      'linear-gradient(135deg, #00c9ff, #92fe9d)',
+      'linear-gradient(135deg, #f953c6, #b91d73)',
+      'linear-gradient(135deg, #43cea2, #185a9d)',
+      'linear-gradient(135deg, #ff9966, #ff5e62)'
+    ];
+
+    document.body.style.background = colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  btn.addEventListener('mouseover', () => {
+    moveButton();
+    changeBackground();
+  });
+
+  btn.addEventListener('click', () => {
+    const random = jokes[Math.floor(Math.random() * jokes.length)];
+    document.getElementById('text').innerText = random;
+    createEmoji();
+  });
+
+  function createEmoji() {
+    const emoji = document.createElement('div');
+    emoji.classList.add('emoji');
+    emoji.innerText = ['😂','🔥','🤡','😎','😭'][Math.floor(Math.random()*5)];
+
+    emoji.style.left = Math.random() * window.innerWidth + 'px';
+    emoji.style.fontSize = (20 + Math.random() * 40) + 'px';
+
+    document.body.appendChild(emoji);
+
+    setTimeout(() => {
+      emoji.remove();
+    }, 5000);
+  }
+
+  setInterval(createEmoji, 800);
+
+  // Initial random position
+  moveButton();
+</script>
+
+</body>
+</html>
