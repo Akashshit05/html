@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>TL K Bolo</title>
+  <title>TL K Bolo 😂</title>
   <style>
     * {
       margin: 0;
@@ -17,15 +17,14 @@
       overflow: hidden;
       position: relative;
       transition: background 0.4s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .container {
       text-align: center;
       color: #fff;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
     }
 
     h1 {
@@ -34,28 +33,34 @@
       text-shadow: 3px 3px 0 #000;
     }
 
-    p {
+    #text {
       margin-top: 20px;
-      font-size: 20px;
+      font-size: 22px;
       animation: shake 0.5s infinite;
+      cursor: pointer;
     }
 
-    #boloBtn {
-      position: absolute;
-      padding: 15px 30px;
-      font-size: 18px;
-      border: none;
-      border-radius: 50px;
-      background: #000;
-      color: #fff;
+    .small-text {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .bolo-text {
+      margin-top: 20px;
+      font-size: 26px;
+      font-weight: bold;
       cursor: pointer;
+      display: inline-block;
+      padding: 10px 20px;
+      background: #000;
+      border-radius: 50px;
       transition: 0.3s;
     }
 
-    #boloBtn:hover {
+    .bolo-text:hover {
       background: #fff;
       color: #000;
-      transform: scale(1.2) rotate(10deg);
+      transform: scale(1.2) rotate(5deg);
     }
 
     .emoji {
@@ -91,12 +96,13 @@
 </head>
 <body>
 
-<div class="container">
-  <h1>TL K BOLO 😂🔥</h1>
-  <p id="text">Try clicking the button 😏</p>
-</div>
+<div class="container" id="container">
+  <h1 id="title">TL কে বলো</h1>
+  <p id="text">Click BOLO if you dare 😏</p>
+  <p class="small-text" id="subText">😂 Don’t worry… BOLO will make it solve.</p>
 
-<button id="boloBtn">Bolo!!!</button>
+  <div class="bolo-text" id="boloText">👉 BOLO 👈</div>
+</div>
 
 <script>
   const jokes = [
@@ -107,15 +113,7 @@
     "Salary nahi, sirf experience mil raha hai 😭"
   ];
 
-  const btn = document.getElementById('boloBtn');
-
-  function moveButton() {
-    const x = Math.random() * (window.innerWidth - 150);
-    const y = Math.random() * (window.innerHeight - 60);
-
-    btn.style.left = x + 'px';
-    btn.style.top = y + 'px';
-  }
+  const bolo = document.getElementById('boloText');
 
   function changeBackground() {
     const colors = [
@@ -129,14 +127,23 @@
     document.body.style.background = colors[Math.floor(Math.random() * colors.length)];
   }
 
-  btn.addEventListener('mouseover', () => {
-    moveButton();
-    changeBackground();
-  });
+  bolo.addEventListener('mouseover', changeBackground);
 
-  btn.addEventListener('click', () => {
+  bolo.addEventListener('click', () => {
     const random = jokes[Math.floor(Math.random() * jokes.length)];
-    document.getElementById('text').innerText = random;
+
+    // Hide other elements
+    document.getElementById('title').style.display = 'none';
+    document.getElementById('subText').style.display = 'none';
+    bolo.style.display = 'none';
+
+    // Show only bold joke
+    const textEl = document.getElementById('text');
+    textEl.innerText = random;
+    textEl.style.fontSize = '30px';
+    textEl.style.fontWeight = 'bold';
+    textEl.style.animation = 'none';
+
     createEmoji();
   });
 
@@ -156,9 +163,33 @@
   }
 
   setInterval(createEmoji, 800);
+  // Go back button
+  const backBtn = document.createElement('div');
+  backBtn.innerText = '⬅️ Go Back';
+  backBtn.style.position = 'fixed';
+  backBtn.style.bottom = '20px';
+  backBtn.style.left = '20px';
+  backBtn.style.padding = '10px 20px';
+  backBtn.style.background = '#000';
+  backBtn.style.color = '#fff';
+  backBtn.style.borderRadius = '20px';
+  backBtn.style.cursor = 'pointer';
+  backBtn.style.display = 'none';
+  backBtn.style.fontWeight = 'bold';
+  backBtn.style.zIndex = '1000';
 
-  // Initial random position
-  moveButton();
+  document.body.appendChild(backBtn);
+
+  // Show back button after click
+  bolo.addEventListener('click', () => {
+    backBtn.style.display = 'block';
+  });
+
+  // Reload page on back
+  backBtn.addEventListener('click', () => {
+    location.reload();
+  });
+
 </script>
 
 </body>
