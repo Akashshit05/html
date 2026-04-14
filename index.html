@@ -12,7 +12,10 @@
     }
 
     body {
-      background: linear-gradient(135deg, #ff4d4d, #ffcc00);
+     background: #516b8b;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #056b3b, #516b8b);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #056b3b, #516b8b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
       height: 100vh;
       overflow: hidden;
       position: relative;
@@ -105,47 +108,81 @@
 </div>
 
 <script>
-  const jokes = [
-    "Tu legend hai... bas tera WiFi slow hai 😭",
-    "Life set hoti... agar tu thoda serious hota 🤡",
-    "Crush tujhe dekh ke offline ho jati hai 😂",
-    "Tu developer hai ya bug generator? 🐛",
-    "Salary nahi, sirf experience mil raha hai 😭"
-  ];
+const jokes = [
+  "Tu legend hai... bas tera WiFi slow hai 😭",
+  "Life set hoti... agar tu thoda serious hota 🤡",
+  "Crush tujhe dekh ke offline ho jati hai 😂",
+  "Tu developer hai ya bug generator? 🐛",
+  "Salary nahi, sirf experience mil raha hai 😭",
+  "Tera code chal gaya? Screenshot bhej warna jhooth hai 😏",
+  "Tu gym gaya tha ya attendance mark karke aa gaya? 😆",
+  "Tera future bright hai... bas light ka bill bhar de 💡",
+  "Error 404: Teri motivation not found 🤡",
+  "Tu smart hai... bas system hang ho jata hai kabhi kabhi 😭",
+  "Tera luck bhi buffering me chal raha hai ⏳",
+  "Tu plan banata achha hai... execute kab karega? 😂",
+  "Teri life ek open tab jaisi hai — kabhi close hi nahi hoti 😆",
+  "Tu padhai karta hai ya sirf highlighter use karta hai? 🤓",
+  "Tera crush tujhe dekh ke airplane mode laga deta hai ✈️😂"
+];
 
   const bolo = document.getElementById('boloText');
+  const container = document.getElementById('container');
 
   function changeBackground() {
     const colors = [
-      'linear-gradient(135deg, #ff4d4d, #ffcc00)',
-      'linear-gradient(135deg, #00c9ff, #92fe9d)',
-      'linear-gradient(135deg, #f953c6, #b91d73)',
-      'linear-gradient(135deg, #43cea2, #185a9d)',
-      'linear-gradient(135deg, #ff9966, #ff5e62)'
-    ];
+    'linear-gradient(135deg, #1f4037, #99f2c8)', // green
+    'linear-gradient(135deg, #00c6ff, #0072ff)', // blue
+    'linear-gradient(135deg, #7f00ff, #e100ff)', // purple
+    'linear-gradient(135deg, #43cea2, #185a9d)', // teal
+    'linear-gradient(135deg, #f7971e, #ffd200)'  // warm yellow
+  ];
 
     document.body.style.background = colors[Math.floor(Math.random() * colors.length)];
   }
 
   bolo.addEventListener('mouseover', changeBackground);
 
+  // CLICK BOLO → SHOW INPUT FORM
   bolo.addEventListener('click', () => {
+
+    container.innerHTML = `
+      <h1>Bol Bhai 😎</h1>
+      <input id="userInput" type="text" placeholder="Apna dard likh..." 
+        style="padding:12px; width:250px; border-radius:20px; border:none; outline:none; margin-top:20px;" />
+      <br><br>
+      <button id="submitBtn" 
+        style="padding:10px 20px; border:none; border-radius:20px; background:black; color:white; cursor:pointer;">
+        Submit 🚀
+      </button>
+    `;
+
+    document.getElementById('submitBtn').addEventListener('click', showJoke);
+  });
+
+  // SHOW JOKE AFTER SUBMIT
+  function showJoke() {
+    const input = document.getElementById('userInput').value;
+
     const random = jokes[Math.floor(Math.random() * jokes.length)];
 
-    // Hide other elements
-    document.getElementById('title').style.display = 'none';
-    document.getElementById('subText').style.display = 'none';
-    bolo.style.display = 'none';
+    container.innerHTML = `
+      <h1 style="font-size:40px;">😂 Result</h1>
+      <p style="margin-top:20px; font-size:18px;">Tum bola: "${input}"</p>
+      <p style="margin-top:20px; font-size:26px; font-weight:bold;">${random}</p>
 
-    // Show only bold joke
-    const textEl = document.getElementById('text');
-    textEl.innerText = random;
-    textEl.style.fontSize = '30px';
-    textEl.style.fontWeight = 'bold';
-    textEl.style.animation = 'none';
+      <div id="backBtn" 
+        style="margin-top:30px; padding:10px 20px; background:black; color:white; border-radius:20px; cursor:pointer;">
+        ⬅️ Go Back
+      </div>
+    `;
 
     createEmoji();
-  });
+
+    document.getElementById('backBtn').addEventListener('click', () => {
+      location.reload();
+    });
+  }
 
   function createEmoji() {
     const emoji = document.createElement('div');
@@ -163,33 +200,6 @@
   }
 
   setInterval(createEmoji, 800);
-  // Go back button
-  const backBtn = document.createElement('div');
-  backBtn.innerText = '⬅️ Go Back';
-  backBtn.style.position = 'fixed';
-  backBtn.style.bottom = '20px';
-  backBtn.style.left = '20px';
-  backBtn.style.padding = '10px 20px';
-  backBtn.style.background = '#000';
-  backBtn.style.color = '#fff';
-  backBtn.style.borderRadius = '20px';
-  backBtn.style.cursor = 'pointer';
-  backBtn.style.display = 'none';
-  backBtn.style.fontWeight = 'bold';
-  backBtn.style.zIndex = '1000';
-
-  document.body.appendChild(backBtn);
-
-  // Show back button after click
-  bolo.addEventListener('click', () => {
-    backBtn.style.display = 'block';
-  });
-
-  // Reload page on back
-  backBtn.addEventListener('click', () => {
-    location.reload();
-  });
-
 </script>
 
 </body>
