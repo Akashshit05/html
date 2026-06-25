@@ -1,0 +1,11 @@
+{
+  "name": "tl-ke-bolo",
+  "version": "1.0.0",
+  "description": "Full-stack application using NestJS and React Vite",
+  "scripts": {
+    "postinstall": "cd frontend && npm install && cd ../backend && npm install",
+    "build": "cd frontend && npm run build && cd ../backend && npm run build",
+    "start": "cd backend && npm run start:prod",
+    "dev": "npm install -g concurrently || true && npx concurrently \"cd frontend && npm run dev\" \"cd backend && npm run start:dev\""
+  }
+}
