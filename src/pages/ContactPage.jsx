@@ -99,7 +99,7 @@ export default function ContactPage() {
           onChange={updateField}
           error={errors.subject}
           maxLength={120}
-          placeholder="Deploy broke, help needed"
+          placeholder="Enter Subject"
         />
         <label className="field span-all">
           <span>Message</span>
@@ -108,7 +108,7 @@ export default function ContactPage() {
             value={form.message}
             onChange={updateField}
             maxLength={1000}
-            placeholder="Tell TL the full scene..."
+            placeholder="Description..."
           />
           <small>{form.message.length}/1000</small>
           {errors.message ? <strong>{errors.message}</strong> : null}
