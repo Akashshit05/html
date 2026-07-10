@@ -1,6 +1,5 @@
+import { useState } from 'react';
 import { Link, NavLink, Route, Routes } from 'react-router-dom';
-import logo from './assets/logo.png';
-
 import AboutPage from './pages/AboutPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
 import HomePage from './pages/HomePage.jsx';
@@ -10,18 +9,41 @@ import QuerySentPage from './pages/QuerySentPage.jsx';
 import './portfolio.css';
 
 export default function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
     <div className="app-shell">
       <header className="site-header">
-        <Link className="brand" to="/" aria-label="TL Ke Bolo home">
-          <img src={logo} alt="TL Ke Bolo logo" className="brand-logo" />
-          <span>Nest</span>Dev
+        <Link className="brand" to="/" aria-label="Backend developer home" onClick={closeMenu}>
+          <span className="brand-mark" aria-hidden="true">BE</span>
+          <span>Backend</span>Dev
         </Link>
-        <nav className="nav-links" aria-label="Primary navigation">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/projects">Projects</NavLink>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
+
+        <button
+          className="mobile-menu-toggle"
+          type="button"
+          aria-label="Show navigation options"
+          aria-expanded={isMenuOpen}
+          aria-controls="primary-navigation"
+          onClick={() => setIsMenuOpen((current) => !current)}
+        >
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+        </button>
+
+        <nav
+          className={`nav-links${isMenuOpen ? ' is-open' : ''}`}
+          id="primary-navigation"
+          aria-label="Primary navigation"
+        >
+          <NavLink to="/" onClick={closeMenu}>Home</NavLink>
+          <a href="/#about" onClick={closeMenu}>About</a>
+          <a href="/#skills" onClick={closeMenu}>Skills</a>
+          <a href="/#projects" onClick={closeMenu}>Projects</a>
+          <a href="/#services" onClick={closeMenu}>Services</a>
+          <a href="/#contact" onClick={closeMenu}>Contact</a>
         </nav>
       </header>
 
@@ -38,29 +60,30 @@ export default function App() {
       <footer className="site-footer">
         <div className="footer-content">
           <div className="footer-brand">
-            <Link className="footer-logo" to="/" aria-label="TL Ke Bolo home">
-              <img src={logo} alt="" />
-              <span>TL Ke Bolo</span>
+            <Link className="footer-logo" to="/" aria-label="Backend developer home">
+              <span className="brand-mark" aria-hidden="true">BE</span>
+              <span>BackendDev</span>
             </Link>
             <p>
-              Building modern, scalable, and high-performance web applications with
-              clean architecture and exceptional user experiences.
+              Backend engineering for Node.js and NestJS products, scalable APIs,
+              database workflows, cloud-ready services, and production systems.
             </p>
           </div>
 
           <nav className="footer-links" aria-label="Footer navigation">
             <h3>Explore</h3>
             <Link to="/">Home</Link>
-            <Link to="/projects">Projects</Link>
-            <Link to="/about">About</Link>
-            <Link to="/contact">Contact</Link>
+            <a href="/#about">About</a>
+            <a href="/#skills">Skills</a>
+            <a href="/#projects">Projects</a>
+            <a href="/#contact">Contact</a>
           </nav>
 
           <div className="footer-contact">
             <h3>Get in touch</h3>
-            <a className="footer-contact-link" href="mailto:support@tlkebolo.com">
+            <a className="footer-contact-link" href="mailto:hello@fullstack.dev">
               <span>Email</span>
-              support@tlkebolo.com
+              hello@fullstack.dev
             </a>
             <a className="footer-contact-link" href="tel:+1234567890">
               <span>Call</span>
@@ -98,7 +121,7 @@ export default function App() {
 
         <div className="footer-bottom">
           <p>
-            Copyright {new Date().getFullYear()} <strong>TL Ke Bolo</strong>. All rights reserved.
+            Copyright {new Date().getFullYear()} <strong>BackendDev</strong>. All rights reserved.
           </p>
           <Link to="/contact">Start a project</Link>
         </div>

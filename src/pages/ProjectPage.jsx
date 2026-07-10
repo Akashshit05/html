@@ -6,10 +6,14 @@ export default function ProjectPage() {
     <div className="projects-page">
       <section className="projects-hero">
         <p className="portfolio-hero-kicker">Project Details</p>
-        <h1>Work Delivered with Scalable Backend Thinking</h1>
+        <h1>
+          <span className="title-line">Node.js Work</span>
+          <span className="title-line">Delivered with</span>
+          <span className="title-line">NestJS Thinking</span>
+        </h1>
         <p>
-          A closer look at featured projects from the home page, including product
-          goals, technical stack, key features, and live links.
+          A closer look at backend-focused project work, including API design,
+          database workflows, technical stack, key features, and live links.
         </p>
       </section>
 
