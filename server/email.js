@@ -1,39 +1,55 @@
 import nodemailer from 'nodemailer';
 
+// Validate required environment variables
 function requiredEmailConfig() {
   return [
-    'ADMIN_EMAIL',
-    'SMTP_HOST',
-    'SMTP_PORT',
-    'SMTP_USER',
-    'SMTP_PASS',
-    'SMTP_FROM'
+    'MAIL_USERNAME',
+    'MAIL_PASSWORD',
+    'ADMIN_EMAIL'
   ].every((key) => Boolean(process.env[key]));
 }
 
-export async function sendAdminNotification(query) {
+// Create reusable Gmail transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD, // Gmail App Password
+  },
+});
+
+// Verify SMTP connection (call this once when the server starts)
+export async function verifyEmailConnection() {
   if (!requiredEmailConfig()) {
-    throw new Error('SMTP email configuration is incomplete.');
+    throw new Error('Email configuration is incomplete.');
   }
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: Number(process.env.SMTP_PORT) === 465,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
+  try {
+    await transporter.verify();
+    console.log('Gmail SMTP connection verified successfully.');
+  } catch (error) {
+    console.error('Gmail SMTP verification failed:', error);
+    throw error;
+  }
+}
+
+// Send admin notification
+export async function sendAdminNotification(query) {
+  if (!requiredEmailConfig()) {
+    throw new Error('Email configuration is incomplete.');
+  }
+
+  const submittedAt = new Date(query.created_at || Date.now()).toLocaleString(
+    'en-IN',
+    {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+      timeZone: 'Asia/Kolkata',
     }
-  });
+  );
 
-  const submittedAt = new Date(query.created_at).toLocaleString('en-IN', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-    timeZone: 'Asia/Kolkata'
-  });
-
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM,
+  const mailOptions = {
+    from: process.env.MAIL_USERNAME,
     to: process.env.ADMIN_EMAIL,
     replyTo: query.email,
     subject: `New TL Ke Bolo query: ${query.subject}`,
@@ -46,25 +62,62 @@ export async function sendAdminNotification(query) {
       `Submitted: ${submittedAt}`,
       '',
       'Message:',
-      query.message
+      query.message,
     ].join('\n'),
     html: `
-      <h2>New TL Ke Bolo query</h2>
-      <p><strong>Name:</strong> ${escapeHtml(query.name)}</p>
-      <p><strong>Email:</strong> ${escapeHtml(query.email)}</p>
-      <p><strong>Subject:</strong> ${escapeHtml(query.subject)}</p>
-      <p><strong>Submitted:</strong> ${escapeHtml(submittedAt)}</p>
-      <p><strong>Message:</strong></p>
-      <p>${escapeHtml(query.message).replace(/\n/g, '<br>')}</p>
-    `
-  });
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #2563eb;">New TL Ke Bolo Query</h2>
+
+        <table style="width:100%; border-collapse: collapse;">
+          <tr>
+            <td style="padding:8px; font-weight:bold;">Name</td>
+            <td style="padding:8px;">${escapeHtml(query.name)}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; font-weight:bold;">Email</td>
+            <td style="padding:8px;">${escapeHtml(query.email)}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; font-weight:bold;">Subject</td>
+            <td style="padding:8px;">${escapeHtml(query.subject)}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; font-weight:bold;">Submitted</td>
+            <td style="padding:8px;">${escapeHtml(submittedAt)}</td>
+          </tr>
+        </table>
+
+        <hr style="margin:20px 0;">
+
+        <h3>Message</h3>
+        <p style="line-height:1.6;">
+          ${escapeHtml(query.message).replace(/\n/g, '<br>')}
+        </p>
+
+        <hr style="margin:20px 0;">
+
+        <p style="font-size:12px; color:#666;">
+          This email was automatically generated from the TL Ke Bolo contact form.
+        </p>
+      </div>
+    `,
+  };
+
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Admin notification sent:', info.messageId);
+    return info;
+  } catch (error) {
+    console.error('Failed to send admin notification:', error);
+    throw error;
+  }
 }
 
+// Escape HTML to prevent injection
 function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+  return String(value ?? '')
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"')
 }

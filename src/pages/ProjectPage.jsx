@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { projects } from '../projects.js';
+import { useContent } from '../useContent.js';
 
 export default function ProjectPage() {
+  const { projects } = useContent();
   return (
     <div className="projects-page">
       <section className="projects-hero">
@@ -17,7 +18,12 @@ export default function ProjectPage() {
         </p>
       </section>
 
-      <section className="project-detail-list">
+      <section
+        className="project-detail-list"
+        role="region"
+        aria-label="All projects"
+        tabIndex="0"
+      >
         {projects.map((project) => (
           <article className="project-detail-card" id={project.slug} key={project.slug}>
             <div className="project-detail-main">

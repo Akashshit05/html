@@ -1,22 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { projects } from '../projects.js';
-
-const skills = [
-  'Node.js',
-  'NestJS',
-  'TypeScript',
-  'Express.js',
-  'MongoDB',
-  'PostgreSQL',
-  'REST APIs',
-  'GraphQL',
-  'JWT Auth',
-  'Microservices',
-  'Docker',
-  'Redis',
-  'AWS'
-];
+import { useContent } from '../useContent.js';
 
 const services = [
   {
@@ -76,6 +60,7 @@ const testimonials = [
 ];
 
 export default function HomePage() {
+  const { projects, skills } = useContent();
   const featuredProjects = projects.slice(0, 3);
 
   useEffect(() => {
