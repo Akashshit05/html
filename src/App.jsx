@@ -4,68 +4,103 @@ import AboutPage from './pages/AboutPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ProjectPage from './pages/ProjectPage.jsx';
+import ProjectDetailPage from './pages/ProjectDetailPage.jsx';
 import QuerySentPage from './pages/QuerySentPage.jsx';
 import AdminLoginPage from './pages/AdminLoginPage.jsx';
 import AdminDashboardPage from './pages/AdminDashboardPage.jsx';
-import { useContent } from './useContent.js';
+import { 
+  DownloadIcon, ChevronUpIcon, 
+  GithubIcon, LinkedinIcon, TwitterIcon, EmailIcon 
+} from './components/Icons.jsx';
 
 import './portfolio.css';
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const { settings } = useContent();
   const closeMenu = () => setIsMenuOpen(false);
 
   const isAdminRoute = location.pathname.startsWith('/admin');
   const isAdminDashboard = location.pathname === '/admin/dashboard';
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className={`app-shell${isAdminDashboard ? ' admin-dashboard-shell' : ''}`}>
       {!isAdminRoute && (
         <header className="site-header">
-          <Link className="brand" to="/" aria-label="Backend developer home" onClick={closeMenu}>
-            <span className="brand-mark" aria-hidden="true">BE</span>
-            <span>Backend</span>Dev
-          </Link>
+          <div className="header-container">
+            <Link className="brand" to="/" aria-label="Akash Shit Home" onClick={closeMenu}>
+              <div className="brand-logo-container">
+                <img 
+                  src="/logo.png" 
+                  alt="Akash Logo" 
+                  className="brand-logo-img"
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+              </div>
+              <div className="brand-text">
+                <span className="brand-name">Akash</span>
+               
+              </div>
+            </Link>
 
-          <button
-            className="mobile-menu-toggle"
-            type="button"
-            aria-label="Show navigation options"
-            aria-expanded={isMenuOpen}
-            aria-controls="primary-navigation"
-            onClick={() => setIsMenuOpen((current) => !current)}
-          >
-            <span aria-hidden="true" />
-            <span aria-hidden="true" />
-            <span aria-hidden="true" />
-          </button>
+            <button
+              className={`mobile-menu-toggle${isMenuOpen ? ' is-active' : ''}`}
+              type="button"
+              aria-label="Show navigation options"
+              aria-expanded={isMenuOpen}
+              onClick={() => setIsMenuOpen((current) => !current)}
+            >
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
+            </button>
 
-          <nav
-            className={`nav-links${isMenuOpen ? ' is-open' : ''}`}
-            id="primary-navigation"
-            aria-label="Primary navigation"
-          >
-            <NavLink to="/" onClick={closeMenu}>Home</NavLink>
-            <a href="/#about" onClick={closeMenu}>About</a>
-            <a href="/#skills" onClick={closeMenu}>Skills</a>
-            <a href="/#projects" onClick={closeMenu}>Projects</a>
-            <a href="/#services" onClick={closeMenu}>Services</a>
-            <a href="/#contact" onClick={closeMenu}>Contact</a>
-          </nav>
+            <nav
+              className={`nav-links${isMenuOpen ? ' is-open' : ''}`}
+              id="primary-navigation"
+              aria-label="Primary navigation"
+            >
+              <NavLink to="/" onClick={closeMenu} end>Home</NavLink>
+              <NavLink to="/about" onClick={closeMenu}>About</NavLink>
+              <NavLink to="/projects" onClick={closeMenu}>Projects</NavLink>
+              <NavLink to="/contact" onClick={closeMenu}>Contact</NavLink>
+            </nav>
+
+            <div className="header-actions">
+              <a className="download-cv-btn" href="/resume.pdf" download onClick={closeMenu}>
+                <span>Download CV</span>
+                <DownloadIcon size={16} />
+              </a>
+            </div>
+          </div>
         </header>
       )}
 
       {isAdminRoute && !isAdminDashboard && (
         <header className="site-header admin-minimal-header">
-          <Link className="brand" to="/" aria-label="Backend developer home">
-            <span className="brand-mark" aria-hidden="true">BE</span>
-            <span>Backend</span>Dev
-          </Link>
-          <div className="nav-links">
-            <NavLink to="/">← Back to Main Site</NavLink>
-            <NavLink to="/admin/dashboard">Admin Dashboard</NavLink>
+          <div className="header-container">
+            <Link className="brand" to="/" aria-label="Akash Shit Home">
+              <div className="brand-logo-container">
+                <img 
+                  src="/logo.png" 
+                  alt="Akash Logo" 
+                  className="brand-logo-img"
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+              </div>
+              <div className="brand-text">
+                <span className="brand-name">Akash</span>
+               
+              </div>
+            </Link>
+            <div className="nav-links">
+              <NavLink to="/">← Back to Main Site</NavLink>
+              <NavLink to="/admin/dashboard">Admin Dashboard</NavLink>
+            </div>
           </div>
         </header>
       )}
@@ -74,6 +109,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectPage />} />
+          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/query-sent" element={<QuerySentPage />} />
@@ -87,76 +123,69 @@ export default function App() {
 
       {!isAdminRoute && (
         <footer className="site-footer">
-          <div className="footer-content">
-            <div className="footer-brand">
-              <Link className="footer-logo" to="/" aria-label="Backend developer home">
-                <span className="brand-mark" aria-hidden="true">BE</span>
-                <span>BackendDev</span>
+          <div className="footer-glow-bar" />
+          <div className="footer-container">
+            <div className="footer-col footer-brand-col">
+              <Link className="footer-brand" to="/" onClick={scrollToTop}>
+                <div className="brand-logo-container">
+                  <img 
+                    src="/logo.png" 
+                    alt="Akash Logo" 
+                    className="brand-logo-img"
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                </div>
+                <div className="brand-text">
+                  <span className="brand-name">Akash</span>
+                 
+                </div>
               </Link>
-              <p>
-                Backend engineering for Node.js and NestJS products, scalable APIs,
-                database workflows, cloud-ready services, and production systems.
+              <p className="footer-bio">
+                Backend Developer crafting robust APIs, microservices, and database solutions for modern web applications.
               </p>
             </div>
 
-            <nav className="footer-links" aria-label="Footer navigation">
-              <h3>Explore</h3>
-              <Link to="/">Home</Link>
-              <a href="/#about">About</a>
-              <a href="/#skills">Skills</a>
-              <a href="/#projects">Projects</a>
-              <a href="/#contact">Contact</a>
-              <Link to="/admin/login" style={{ color: 'var(--accent-light)', fontWeight: 700 }}>🔐 Admin Panel</Link>
-            </nav>
+            <div className="footer-col footer-nav-col">
+              <h4 className="footer-col-title">Navigation</h4>
+              <nav className="footer-nav" aria-label="Footer navigation">
+                <Link to="/">Home</Link>
+                <Link to="/about">About</Link>
+                <Link to="/projects">Projects</Link>
+                <Link to="/contact">Contact</Link>
+              </nav>
+            </div>
 
-            <div className="footer-contact">
-              <h3>Get in touch</h3>
-              <a className="footer-contact-link" href={`mailto:${settings?.email || 'hello@fullstack.dev'}`}>
-                <span>Email</span>
-                {settings?.email || 'hello@fullstack.dev'}
-              </a>
-              <a className="footer-contact-link" href={`tel:${(settings?.phone || '+1 234 567 890').replace(/\s+/g, '')}`}>
-                <span>Call</span>
-                {settings?.phone || '+1 234 567 890'}
-              </a>
-
-              <div className="footer-social" aria-label="Social links">
-                <a
-                  href={settings?.github || 'https://github.com'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                >
-                  GH
+            <div className="footer-col footer-social-col">
+              <h4 className="footer-col-title">Social Links</h4>
+              <div className="footer-social-icons">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="footer-social-btn">
+                  <GithubIcon size={18} />
                 </a>
-                <a
-                  href={settings?.linkedin || 'https://linkedin.com'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                >
-                  in
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="footer-social-btn">
+                  <LinkedinIcon size={18} />
                 </a>
-                <a
-                  href={settings?.twitter || 'https://x.com'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="X"
-                >
-                  X
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="footer-social-btn">
+                  <TwitterIcon size={18} />
+                </a>
+                <a href="mailto:akash@example.com" aria-label="Email" className="footer-social-btn">
+                  <EmailIcon size={18} />
                 </a>
               </div>
+              <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top" title="Scroll to top">
+                <ChevronUpIcon size={18} />
+                <span>Back to Top</span>
+              </button>
             </div>
           </div>
 
           <div className="footer-bottom">
-            <p>
-              Copyright {new Date().getFullYear()} <strong>BackendDev</strong>. All rights reserved.
+            <p className="copyright-text">
+              © {new Date().getFullYear()} Akash Shit. All rights reserved.
             </p>
-            <Link to="/contact">Start a project</Link>
           </div>
         </footer>
       )}
     </div>
   );
 }
+

@@ -1,92 +1,92 @@
 export const projects = [
   {
-    slug: 'tl-ke-bolo-platform',
-    title: 'TL Ke Bolo',
-    category: 'Community Platform Backend',
+    slug: 'taarom-astrologer-app',
+    title: 'Taarom – Astrologer App',
+    category: 'Astrology Platform Backend',
     summary:
-      'A production community platform backend covering profiles, subscriptions, coupons, messaging, and location-based discovery.',
+      'Astrology platform connecting users with astrologers for chat, call and consultation. Built with real-time features and wallet system.',
     description:
-      'TL Ke Bolo brings community discovery, messaging, membership benefits, and promotional coupons into one scalable product experience. The backend focus includes reliable API workflows, reusable service modules, and practical data models for user engagement.',
-    website: 'https://tlkebolo.com',
-    playstore: 'https://play.google.com/store/apps/details?id=com.tlkebolo.app',
-    icon: 'TL',
+      'Taarom connects users with certified astrologers for live chat, voice calls, horoscope readings, and consultation services. Features include real-time WebSockets, wallet integration, session history, and scalable NestJS backend microservices.',
+    website: 'https://taarom.com',
+    playstore: 'https://play.google.com/store/apps/details?id=com.taarom.app',
+    icon: 'TR',
     metrics: [
       { label: 'Platform', value: 'Web + Mobile' },
+      { label: 'Role', value: 'Backend Engineer' },
+      { label: 'Focus', value: 'Real-time & Wallet' }
+    ],
+    features: [
+      'Live chat and voice call consultation with WebSockets',
+      'Wallet system with secure payment gateway integration',
+      'Horoscope and kundli generation engine',
+      'Astrologer availability tracking & queue management',
+      'Admin analytics dashboard for revenue and sessions'
+    ],
+    stack: ['NestJS', 'MongoDB', 'Socket.io', 'AWS', 'Node.js', 'REST APIs'],
+    results: [
+      'Engineered real-time chat with 99.9% uptime',
+      'Supported concurrent consultation calls with low latency',
+      'Implemented secure wallet transaction history'
+    ]
+  },
+  {
+    slug: 'movement-baby',
+    title: 'Movement Baby',
+    category: 'Parenting & Baby Care App',
+    summary:
+      'Parenting & baby care app with expert guidance, articles, tracking and personalized suggestions.',
+    description:
+      'Movement Baby helps new parents track baby development milestones, vaccination schedules, sleep cycles, and daily feeding logs, backed by curated expert pediatric articles and personalized growth insights.',
+    website: 'https://movementbaby.com',
+    playstore: 'https://play.google.com/store/apps/details?id=com.movementbaby.app',
+    icon: 'MB',
+    metrics: [
+      { label: 'Platform', value: 'Mobile' },
+      { label: 'Role', value: 'Node.js Developer' },
+      { label: 'Focus', value: 'Data & Tracking APIs' }
+    ],
+    features: [
+      'Baby growth milestone and vaccination tracker',
+      'Personalized expert articles & recommendations engine',
+      'Daily feeding, sleep, and diaper logging APIs',
+      'Push notification alerts for vaccination schedules',
+      'MongoDB schemas optimized for rapid timeline queries'
+    ],
+    stack: ['Node.js', 'Express', 'MongoDB', 'REST APIs', 'JWT Auth'],
+    results: [
+      'Reduced database response time for daily logs by 40%',
+      'Built automated notification system for vaccinations',
+      'Delivered clean API architecture for mobile app'
+    ]
+  },
+  {
+    slug: 'bullshift2020-admin-panel',
+    title: 'Bullshift2020 – Admin Panel',
+    category: 'MLM & Enterprise Operations',
+    summary:
+      'Admin panel for managing MLM operations, users, commissions and reports with advanced analytics.',
+    description:
+      'A comprehensive administrative dashboard system built to handle user management, binary tree commission calculations, withdrawal approvals, transaction reporting, and real-time operational analytics.',
+    website: 'https://bullshift2020.com',
+    playstore: 'https://bullshift2020.com',
+    icon: 'BS',
+    metrics: [
+      { label: 'Platform', value: 'Admin Web Dashboard' },
       { label: 'Role', value: 'Backend Lead' },
-      { label: 'Focus', value: 'NestJS APIs' }
+      { label: 'Focus', value: 'Analytics & Commissions' }
     ],
     features: [
-      'User profiles with badges and membership status',
-      'Subscription and coupon workflows',
-      'Direct messaging and community interactions',
-      'Location-based discovery for nearby users',
-      'Admin-ready backend structure for managing platform data'
+      'Automated commission calculation engine using PostgreSQL',
+      'User hierarchy and genealogy tree management',
+      'Financial reporting and ledger transaction logs',
+      'Role-based access control (RBAC) with NestJS guards',
+      'TypeORM query optimizations for complex report aggregations'
     ],
-    stack: ['NestJS', 'Node.js', 'TypeScript', 'MongoDB', 'REST APIs', 'JWT Auth'],
+    stack: ['NestJS', 'PostgreSQL', 'TypeORM', 'Node.js', 'Redis', 'Docker'],
     results: [
-      'Built reusable backend modules for future features',
-      'Improved user discovery with location-aware flows',
-      'Supported web and mobile clients from a single API layer'
-    ]
-  },
-  {
-    slug: 'auth-service',
-    title: 'Authentication Service',
-    category: 'Secure API Infrastructure',
-    summary:
-      'A reusable Node.js authentication layer with JWT sessions, role-based access, validation, and protected route patterns.',
-    description:
-      'A backend authentication service designed for SaaS and marketplace products. It keeps auth logic modular with clear DTOs, guards, hashed credentials, refresh-ready sessions, and role-based authorization.',
-    website: 'https://tlkebolo.com',
-    playstore: 'https://play.google.com/store/apps/details?id=com.tlkebolo.app',
-    icon: 'AU',
-    metrics: [
-      { label: 'Layer', value: 'Auth API' },
-      { label: 'Role', value: 'Backend Dev' },
-      { label: 'Focus', value: 'Security' }
-    ],
-    features: [
-      'JWT-based login and protected API routes',
-      'Role-based permissions for users and admins',
-      'Request validation with typed DTO patterns',
-      'Password hashing and secure credential handling',
-      'Reusable guards for product modules'
-    ],
-    stack: ['Node.js', 'NestJS', 'TypeScript', 'JWT', 'MongoDB', 'REST APIs'],
-    results: [
-      'Reduced repeated auth logic across product modules',
-      'Improved API access control clarity',
-      'Created a maintainable base for future backend services'
-    ]
-  },
-  {
-    slug: 'coupon-subscription-api',
-    title: 'Coupon & Subscription API',
-    category: 'Business Workflow Backend',
-    summary:
-      'A backend workflow for coupons, memberships, subscription status, and admin-managed promotional rules.',
-    description:
-      'A business-focused API layer for handling membership benefits, coupon availability, redemption flows, and admin controls. The implementation emphasizes predictable service boundaries and clean data updates.',
-    website: 'https://tlkebolo.com',
-    playstore: 'https://play.google.com/store/apps/details?id=com.tlkebolo.app',
-    icon: 'CS',
-    metrics: [
-      { label: 'Workflow', value: 'Coupons' },
-      { label: 'Role', value: 'API Dev' },
-      { label: 'Focus', value: 'Data Rules' }
-    ],
-    features: [
-      'Coupon creation and redemption workflows',
-      'Membership-aware offer availability',
-      'Admin APIs for managing promotions',
-      'Status tracking for user benefits',
-      'Structured data models for business rules'
-    ],
-    stack: ['NestJS', 'Node.js', 'MongoDB', 'TypeScript', 'REST APIs', 'Docker'],
-    results: [
-      'Made promotional workflows easier to manage',
-      'Improved consistency in coupon and subscription state',
-      'Kept business rules isolated from client-side code'
+      'Handled automated payout calculations for 50k+ active accounts',
+      'Optimized query performance for financial reporting',
+      'Zero downtime commission calculation cycles'
     ]
   }
 ];

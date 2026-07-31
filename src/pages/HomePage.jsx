@@ -1,67 +1,65 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useContent } from '../useContent.js';
+import {
+  NodeIcon, NestIcon, MongoIcon, PostgresIcon, TSIcon, RedisIcon, DockerIcon, AWSIcon,
+  BriefcaseIcon, GraduationCapIcon, CodeGearIcon, QuoteIcon, CheckIcon, ExternalLinkIcon,
+  ArrowRightIcon, MessageIcon, PaperPlaneIcon, MailIcon, CalendarIcon,
+  GithubIcon, LinkedinIcon, TwitterIcon, EmailIcon
+} from '../components/Icons.jsx';
 
-const services = [
+const techStackList = [
+  { name: 'Node.js', icon: <NodeIcon size={26} /> },
+  { name: 'NestJS', icon: <NestIcon size={26} /> },
+  { name: 'MongoDB', icon: <MongoIcon size={26} /> },
+  { name: 'PostgreSQL', icon: <PostgresIcon size={26} /> },
+  { name: 'TypeScript', icon: <TSIcon size={26} /> },
+  { name: 'Redis', icon: <RedisIcon size={26} /> },
+  { name: 'Docker', icon: <DockerIcon size={26} /> },
+  { name: 'AWS', icon: <AWSIcon size={26} /> },
+];
+
+const featuredProjects = [
   {
-    title: 'Node.js Backend Engineering',
-    text: 'Clean, maintainable server-side applications with modular architecture, validation, auth, queues, and integrations.'
+    title: 'Taarom – Astrologer App',
+    summary: 'Astrology platform connecting users with astrologers for chat, call and consultation. Built with real-time features and wallet system.',
+    stack: ['NestJS', 'MongoDB', 'Socket.io', 'AWS'],
+    image: '/taarom_app.svg',
+    fallbackImage: '/taarom_app.png',
+    theme: 'purple-card',
+    link: 'https://taarom.com'
   },
   {
-    title: 'NestJS API Development',
-    text: 'Secure REST and GraphQL APIs with guards, interceptors, DTOs, services, repositories, and production-ready patterns.'
+    title: 'Movement Baby',
+    summary: 'Parenting & baby care app with expert guidance, articles, tracking and personalized suggestions.',
+    stack: ['Node.js', 'Express', 'MongoDB'],
+    image: '/movement_baby.svg',
+    fallbackImage: '/movement_baby.png',
+    theme: 'green-card',
+    link: 'https://movementbaby.com'
   },
   {
-    title: 'Database & Cloud Systems',
-    text: 'MongoDB and SQL data models, Redis caching, AWS-ready deployments, observability, and performance tuning.'
+    title: 'Bullshift2020 – Admin Panel',
+    summary: 'Admin panel for managing MLM operations, users, commissions and reports with advanced analytics.',
+    stack: ['NestJS', 'PostgreSQL', 'TypeORM'],
+    image: '/bullshift_admin.svg',
+    fallbackImage: '/bullshift_admin.png',
+    theme: 'blue-card',
+    link: 'https://bullshift2020.com'
   }
 ];
 
-const experience = [
-  {
-    period: '2024 - Present',
-    role: 'Backend Engineer',
-    company: 'Node.js & NestJS Platforms',
-    text: 'Building scalable APIs, service modules, authentication flows, database models, and cloud-ready backend systems.'
-  },
-  {
-    period: '2022 - 2024',
-    role: 'Node.js Developer',
-    company: 'API Platforms',
-    text: 'Designed reliable Node.js services, payment-ready APIs, admin workflows, integration layers, and production data models.'
-  },
-  {
-    period: '2021 - 2022',
-    role: 'Full Stack Developer',
-    company: 'Modern Web Apps',
-    text: 'Delivered complete web applications while growing a stronger focus on backend architecture, APIs, and deployment workflows.'
-  }
-];
-
-const testimonials = [
-  {
-    quote:
-      'A backend engineer who can turn messy product requirements into clean, reliable Node.js services.',
-    name: 'Aarav Mehta',
-    title: 'Founder, SaaS Studio'
-  },
-  {
-    quote:
-      'The APIs were fast, well-structured, and easy for the frontend and mobile teams to consume.',
-    name: 'Priya Nair',
-    title: 'Product Lead'
-  },
-  {
-    quote:
-      'Clean NestJS modules, clear communication, and a strong instinct for performance under real traffic.',
-    name: 'Daniel Foster',
-    title: 'CTO, Growth Platform'
-  }
+const whatIDoList = [
+  'API Development',
+  'Database Design',
+  'System Integration',
+  'Performance Optimization',
+  'Clean & Maintainable Code'
 ];
 
 export default function HomePage() {
-  const { projects, skills } = useContent();
-  const featuredProjects = projects.slice(0, 3);
+  const { settings, projects } = useContent();
+  const displayProjects = (projects && projects.length > 0) ? projects.slice(0, 3) : featuredProjects;
 
   useEffect(() => {
     const elements = document.querySelectorAll('.reveal');
@@ -74,7 +72,7 @@ export default function HomePage() {
           }
         });
       },
-      { threshold: 0.14 }
+      { threshold: 0.1 }
     );
 
     elements.forEach((element) => observer.observe(element));
@@ -82,208 +80,214 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="home-container premium-home">
-      <section className="premium-hero reveal" id="home">
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow">Backend Engineer / Node.js / NestJS / APIs</p>
-            <h1>
-              Building scalable backend systems with Node.js and NestJS.
-            </h1>
-            <p className="hero-lede">
-              I design and develop production-ready APIs, authentication,
-              database models, integrations, and cloud-ready services using
-              Node.js, NestJS, TypeScript, MongoDB, PostgreSQL, Redis, and AWS.
-            </p>
-            <div className="hero-actions" aria-label="Primary actions">
-              <Link className="portfolio-btn primary" to="/projects">
-                View Projects
-                <span aria-hidden="true">{'->'}</span>
-              </Link>
-              <a className="portfolio-btn ghost" href="/resume.pdf" download>
-                Download Resume
-                <span aria-hidden="true">↓</span>
+    <div className="home-container">
+      {/* HERO SECTION */}
+      <section className="hero-section reveal" id="home">
+        <div className="hero-content">
+          <div className="hero-badge">
+            <span className="hand-wave">🖐️</span> Hello, I'm
+          </div>
+          <h1 className="hero-title">Akash Shit</h1>
+          <h2 className="hero-subtitle">Backend Developer</h2>
+          <p className="hero-description">
+            I build scalable, high-performance backend systems and APIs using Node.js, NestJS and modern technologies. Passionate about clean code, problem solving and delivering real-world solutions.
+          </p>
+
+          <div className="hero-buttons">
+            <Link to="/projects" className="btn btn-primary">
+              View My Work <ArrowRightIcon size={16} />
+            </Link>
+            <Link to="/contact" className="btn btn-secondary">
+              Contact Me <MessageIcon size={16} />
+            </Link>
+          </div>
+
+          <div className="social-connect">
+            <span className="social-label">Connect with me</span>
+            <div className="social-icons">
+              <a href={settings?.github || 'https://github.com'} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <GithubIcon size={18} />
+              </a>
+              <a href={settings?.linkedin || 'https://linkedin.com'} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <LinkedinIcon size={18} />
+              </a>
+              <a href={settings?.twitter || 'https://x.com'} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                <TwitterIcon size={18} />
+              </a>
+              <a href={`mailto:${settings?.email || 'akash@example.com'}`} aria-label="Email">
+                <EmailIcon size={18} />
               </a>
             </div>
           </div>
+        </div>
 
-          <div className="hero-visual" aria-label="Developer capability preview">
-            <div className="orbital-card main-card">
-              <div className="window-dots" aria-hidden="true">
-                <span />
-                <span />
-                <span />
+        <div className="hero-image-wrapper">
+          <div className="profile-card">
+            {/* CARD STATUS HEADER */}
+            <div className="profile-card-header">
+              <span className="status-dot"></span>
+              <span className="status-text">Available for Opportunities</span>
+            </div>
+
+            {/* AVATAR & NAME */}
+            <div className="profile-avatar-block">
+              <div className="avatar-ring">
+                <img 
+                  src="/akash_profile.svg" 
+                  alt="Akash Shit - Backend Developer" 
+                  className="profile-img-avatar"
+                  onError={(e) => {
+                    if (e.target.src.endsWith('/akash_profile.svg')) {
+                      e.target.src = '/akash_profile.png';
+                    } else {
+                      e.target.src = '/main.jpeg';
+                    }
+                  }}
+                />
               </div>
-              <pre>{`const backendEngineer = {
-  stack: ['Node.js', 'NestJS', 'TypeScript'],
-  focus: 'scalable APIs + services',
-  data: ['MongoDB', 'PostgreSQL', 'Redis'],
-  deploy: 'AWS + Docker + CI/CD'
-};`}</pre>
+              <div className="avatar-text">
+                <h3 className="profile-name">Akash Shit</h3>
+                <p className="profile-role">Backend Developer & System Architect</p>
+              </div>
             </div>
-            <div className="floating-metric metric-one">
-              <strong>API</strong>
-              <span>REST, GraphQL, auth, queues</span>
-            </div>
-            <div className="floating-metric metric-two">
-              <strong>10+</strong>
-              <span>Backend modules shipped</span>
-            </div>
-          </div>
-        </div>
 
-        <div className="hero-proof" aria-label="Portfolio highlights">
-          <div>
-            <strong>3+</strong>
-            <span>Years experience</span>
-          </div>
-          <div>
-            <strong>Backend first</strong>
-            <span>Node.js, NestJS, APIs</span>
-          </div>
-          <div>
-            <strong>Production focus</strong>
-            <span>Secure, fast, observable</span>
+            {/* STATS GRID */}
+            <div className="profile-stats-grid">
+              <div className="profile-stat-item">
+                <span className="stat-num">3+</span>
+                <span className="stat-lbl">Years Experience</span>
+              </div>
+              <div className="profile-stat-item">
+                <span className="stat-num">15+</span>
+                <span className="stat-lbl">Production APIs</span>
+              </div>
+              <div className="profile-stat-item">
+                <span className="stat-num">99.9%</span>
+                <span className="stat-lbl">Uptime Target</span>
+              </div>
+              <div className="profile-stat-item">
+                <span className="stat-num">100%</span>
+                <span className="stat-lbl">Clean Code</span>
+              </div>
+            </div>
+
+            {/* CORE SKILL BADGES */}
+            <div className="profile-skill-pills">
+              <span className="profile-pill">Node.js</span>
+              <span className="profile-pill">NestJS</span>
+              <span className="profile-pill">MongoDB</span>
+              <span className="profile-pill">PostgreSQL</span>
+              <span className="profile-pill">Microservices</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="portfolio-section about-section reveal" id="about">
-        <div className="section-heading">
-          <p className="eyebrow">About</p>
-          <h2>Backend developer, API architect, and product-minded engineer.</h2>
-        </div>
-        <div className="about-layout">
-          <p>
-            I help teams build dependable backend foundations for web and mobile
-            products. My sweet spot is Node.js and NestJS development: clean API
-            contracts, secure auth, database design, integrations, and systems
-            that stay steady under real users.
-          </p>
-          <div className="about-panel glass-panel">
-            <span>Currently focused on</span>
-            <strong>Node.js, NestJS, TypeScript, MongoDB, PostgreSQL, Redis, AWS</strong>
+      {/* TECH STACK BAR */}
+      <section className="tech-stack-section reveal" id="skills">
+        <div className="tech-stack-bar">
+          <h3 className="tech-stack-title">Tech Stack</h3>
+          <div className="tech-stack-grid">
+            {techStackList.map((tech) => (
+              <div className="tech-item" key={tech.name}>
+                <div className="tech-icon">{tech.icon}</div>
+                <span className="tech-name">{tech.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="portfolio-section reveal" id="skills">
-        <div className="section-heading centered">
-          <p className="eyebrow">Skills</p>
-          <h2>Backend technologies for scalable product systems.</h2>
-        </div>
-        <div className="skills-marquee">
-          {skills.map((skill) => (
-            <span className="skill-pill" key={skill}>
-              {skill}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      <section className="portfolio-section reveal" id="projects">
-        <div className="section-heading split">
-          <div>
-            <p className="eyebrow">Featured Projects</p>
-            <h2>Selected builds with API depth and backend reliability.</h2>
+      {/* FEATURED PROJECTS SECTION */}
+      <section className="featured-projects-section reveal" id="projects">
+        <div className="section-header">
+          <div className="section-header-left">
+            <h2 className="section-title">Featured Projects</h2>
           </div>
-          <Link className="text-link" to="/projects">
-            See all projects
+          <Link to="/projects" className="view-all-link">
+            View all projects <ArrowRightIcon size={16} />
           </Link>
         </div>
-        <div className="project-showcase">
-          {featuredProjects.map((project, index) => (
-            <article className="project-card glass-panel" key={`${project.slug}-${index}`}>
-              <div className="project-card-top">
-                <span className="project-letter-icon">{project.icon}</span>
-                <span>{project.category}</span>
+
+        <div className="projects-grid">
+          {displayProjects.map((project, idx) => {
+            const projectSlug = project.slug || project.id || `project-${idx}`;
+            const slugLower = String(projectSlug).toLowerCase();
+            const projectImage = project.image || (
+              slugLower.includes('taarom') ? '/taarom_app.svg' : 
+              slugLower.includes('movement') ? '/movement_baby.svg' : 
+              slugLower.includes('bullshift') ? '/bullshift_admin.svg' : 
+              (idx % 3 === 0 ? '/taarom_app.svg' : idx % 3 === 1 ? '/movement_baby.svg' : '/bullshift_admin.svg')
+            );
+            const fallbackImg = project.fallbackImage || (
+              slugLower.includes('taarom') ? '/taarom_app.png' : 
+              slugLower.includes('movement') ? '/movement_baby.png' : 
+              slugLower.includes('bullshift') ? '/bullshift_admin.png' : 
+              (idx % 3 === 0 ? '/taarom_app.png' : idx % 3 === 1 ? '/movement_baby.png' : '/bullshift_admin.png')
+            );
+            const themeClass = project.theme || (idx % 3 === 0 ? 'purple-card' : idx % 3 === 1 ? 'green-card' : 'blue-card');
+
+            return (
+              <div className={`project-card ${themeClass}`} key={project.slug || project.title || idx}>
+                <div className="project-banner">
+                  <Link to={`/projects/${projectSlug}`}>
+                    <img 
+                      src={projectImage} 
+                      alt={project.title} 
+                      className="project-banner-img"
+                      onError={(e) => {
+                        if (e.target.src.endsWith('.svg')) {
+                          e.target.src = fallbackImg;
+                        } else {
+                          e.target.style.display = 'none';
+                        }
+                      }}
+                    />
+                  </Link>
+                  {project.website && (
+                    <a href={project.website} target="_blank" rel="noopener noreferrer" className="external-link-btn" aria-label="Open Live Site">
+                      <ExternalLinkIcon size={18} />
+                    </a>
+                  )}
+                </div>
+                <div className="project-body">
+                  <h3 className="project-title">
+                    <Link to={`/projects/${projectSlug}`}>{project.title}</Link>
+                  </h3>
+                  <p className="project-summary">{project.summary || project.description}</p>
+                  <div className="project-tags">
+                    {project.stack && project.stack.map((tag) => (
+                      <span className="tag-pill" key={tag}>{tag}</span>
+                    ))}
+                  </div>
+                  <Link to={`/projects/${projectSlug}`} className="project-detail-link-btn">
+                    View Details <ArrowRightIcon size={14} />
+                  </Link>
+                </div>
               </div>
-              <h3>{project.title}</h3>
-              <p>{project.summary}</p>
-              <div className="project-stack">
-                {project.stack.slice(0, 4).map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-              <div className="card-footer-row">
-                <a href={project.website} target="_blank" rel="noopener noreferrer">
-                  Live Website
-                </a>
-                <Link to={`/projects#${project.slug}`}>Details</Link>
-              </div>
-            </article>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      <section className="portfolio-section reveal" id="experience">
-        <div className="section-heading">
-          <p className="eyebrow">Experience</p>
-          <h2>Practical delivery across APIs, databases, integrations, and cloud.</h2>
-        </div>
-        <div className="timeline">
-          {experience.map((item) => (
-            <article className="timeline-item" key={`${item.period}-${item.role}`}>
-              <span>{item.period}</span>
-              <div>
-                <h3>{item.role}</h3>
-                <p className="timeline-company">{item.company}</p>
-                <p>{item.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
 
-      <section className="portfolio-section reveal" id="services">
-        <div className="section-heading centered">
-          <p className="eyebrow">Services</p>
-          <h2>From API design to production-grade backend infrastructure.</h2>
-        </div>
-        <div className="services-grid">
-          {services.map((service, index) => (
-            <article className="service-card glass-panel" key={service.title}>
-              <span aria-hidden="true">0{index + 1}</span>
-              <h3>{service.title}</h3>
-              <p>{service.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
 
-      <section className="portfolio-section reveal" id="testimonials">
-        <div className="section-heading split">
-          <div>
-            <p className="eyebrow">Testimonials</p>
-            <h2>Trusted for backend structure, engineering quality, and momentum.</h2>
+      {/* CALL TO ACTION BANNER */}
+      <section className="cta-section reveal" id="contact">
+        <div className="cta-card">
+          <div className="cta-left">
+            <div className="cta-icon">
+              <MailIcon size={24} />
+            </div>
+            <div className="cta-text">
+              <h2>Let's work together on your next project</h2>
+              <p>I'm currently available for freelance and full-time opportunities.</p>
+            </div>
           </div>
+          <Link to="/contact" className="btn btn-primary cta-btn">
+            Get In Touch <PaperPlaneIcon size={16} />
+          </Link>
         </div>
-        <div className="testimonial-grid">
-          {testimonials.map((item) => (
-            <figure className="testimonial-card glass-panel" key={item.name}>
-              <blockquote>“{item.quote}”</blockquote>
-              <figcaption>
-                <strong>{item.name}</strong>
-                <span>{item.title}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-
-      <section className="contact-cta reveal" id="contact">
-        <div>
-          <p className="eyebrow">Contact</p>
-          <h2>Need a backend engineer for your Node.js or NestJS product?</h2>
-          <p>
-            Let’s build secure APIs, clean data models, integrations, and
-            scalable services that are ready for real users.
-          </p>
-        </div>
-        <Link className="portfolio-btn primary" to="/contact">
-          Start a Project
-          <span aria-hidden="true">{'->'}</span>
-        </Link>
       </section>
     </div>
   );

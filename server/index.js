@@ -81,6 +81,19 @@ app.get('/api/content', async (_req, res) => {
   }
 });
 
+app.get('/api/projects/:slug', async (req, res) => {
+  try {
+    const projects = await getProjects();
+    const project = projects.find(p => p.slug === req.params.slug || p.id === req.params.slug);
+    if (project) {
+      return res.json({ ok: true, project });
+    }
+    return res.status(404).json({ ok: false, message: 'Project not found.' });
+  } catch (error) {
+    return res.status(500).json({ ok: false, message: 'Failed to load project details.' });
+  }
+});
+
 app.get('/api/settings', async (_req, res) => {
   try {
     const settings = await getSettings();

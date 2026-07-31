@@ -1,79 +1,110 @@
+import { Link } from 'react-router-dom';
+import { useContent } from '../useContent.js';
+import { 
+  NodeIcon, NestIcon, PostgresIcon, MongoIcon, TSIcon, DockerIcon,
+  BriefcaseIcon, GraduationCapIcon, ArrowRightIcon, CheckIcon 
+} from '../components/Icons.jsx';
+
 export default function AboutPage() {
+  const { settings, skills } = useContent();
+
   return (
-    <div className="founder-story-container">
-      <div className="founder-hero-card">
-        <div className="founder-image-wrapper">
-          <img className="founder-main-img" src="https://images.unsplash.com/photo-1542596594-649edbc13630?auto=format&fit=crop&q=80&w=600&h=400" alt="Founders" />
-          <div className="founder-plaque">
-            <strong>John Doe</strong>
-            <span>Founders</span>
-          </div>
-        </div>
-        <div className="founder-hero-text">
-          <p className="kicker-text">Meet The Founders</p>
-          <h1> Leadership</h1>
-          <p>
-            John Doe and Jane Doe began their journey together with a shared passion
-            for innovation, creativity, and making a positive impact. Over the years,
-            their combined vision and dedication have helped transform ideas into
-            meaningful experiences that connect people and create lasting value.
+    <div className="about-page-container">
+      {/* HERO BANNER */}
+      <section className="about-hero-card">
+        <div className="about-hero-content">
+          <span className="hero-kicker">• About Akash Shit</span>
+          <h1 className="about-title">
+            Backend Developer & Systems Architect
+          </h1>
+          <p className="about-lead">
+            With 3+ years of experience designing and scaling backend infrastructures, I specialize in building robust REST APIs, real-time microservices, and database systems using Node.js, NestJS, MongoDB, and PostgreSQL.
           </p>
-          <p>
-            Driven by a commitment to excellence and continuous growth, they have built
-            a platform focused on delivering quality, trust, and customer satisfaction.
-            Their leadership continues to inspire the team to push boundaries, embrace
-            new opportunities, and strive for excellence in everything they do.
-          </p>
-        </div>
-      </div>
-
-      <div className="founder-story-text center">
-        <h2>Some stories are written by fate, and ours is one of them.</h2>
-        <p>John Doe and Jane Doe began their journey together with a shared passion for innovation, creativity, and making a positive impact. Over the years, their combined vision and dedication have helped transform ideas into meaningful experiences that connect people and create lasting value.
-
-          Driven by a commitment to excellence and continuous growth, they have built a platform focused on delivering quality, trust, and customer satisfaction. Their leadership continues to inspire the team to push boundaries, embrace new opportunities, and strive for excellence in everything they do.
-        </p>
-      </div>
-
-      <div className="section-divider">
-        <span>Our Patrons</span>
-      </div>
-
-      <div className="founder-split-section">
-        <div className="founder-story-text left">
-          <h2>Some stories are written by fate, and ours is one of them.</h2>
-          <p>John Doe and Jane Doe began their journey together with a shared passion for innovation, creativity, and making a positive impact. Over the years, their combined vision and dedication have helped transform ideas into meaningful experiences that connect people and create lasting value.
-
-            Driven by a commitment to excellence and continuous growth, they have built a platform focused on delivering quality, trust, and customer satisfaction. Their leadership continues to inspire the team to push boundaries, embrace new opportunities, and strive for excellence in everything they do.</p>
-        </div>
-        <div className="founder-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=400&h=400" alt="Patrons" />
-          <div className="founder-plaque">
-            <strong>John Doe</strong>
-            <span>Founders</span>
-            <p>Enjoy adventurous travel, seek new cultures and offbeat destinations</p>
+          
+          <div className="about-hero-buttons">
+            <Link to="/contact" className="btn btn-primary">
+              Work Together <ArrowRightIcon size={16} />
+            </Link>
+            <a href="/resume.pdf" download className="btn btn-secondary">
+              Download CV
+            </a>
           </div>
         </div>
-      </div>
 
-      <div className="section-divider-line"></div>
-
-      <div className="founder-split-section reverse">
-        <div className="founder-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400&h=400" alt="Patrons" />
-          <div className="founder-plaque">
-            <strong>John Doe</strong>
-            <span>Founders</span>
-            <p>Enjoy adventurous travel, seek new cultures and offbeat destinations</p>
+        <div className="about-hero-image">
+          <img 
+            src="/akash_profile.svg" 
+            alt="Akash Shit - Backend Developer" 
+            className="about-profile-img"
+            onError={(e) => { e.target.src = '/main.jpeg'; }}
+          />
+          <div className="about-experience-tag">
+            <strong>3+ Years</strong>
+            <span>Backend Experience</span>
           </div>
         </div>
-        <div className="founder-story-text left">
-          <h2>Some stories are written by fate, and ours is one of them.</h2>
-          <p>John Doe and Jane Doe began their journey together with a shared passion for innovation, creativity, and making a positive impact. Over the years, their combined vision and dedication have helped transform ideas into meaningful experiences that connect people and create lasting value.
+      </section>
 
-            Driven by a commitment to excellence and continuous growth, they have built a platform focused on delivering quality, trust, and customer satisfaction. Their leadership continues to inspire the team to push boundaries, embrace new opportunities, and strive for excellence in everything they do.</p>
+      {/* CORE SKILLS & CAPABILITIES */}
+      <section className="about-skills-section">
+        <div className="section-header">
+          <span className="sub-tag">• Technical Stack</span>
+          <h2>Technologies & Core Expertise</h2>
         </div>
-      </div>
+        <div className="skills-badge-grid">
+          {skills && skills.map((skill) => (
+            <div className="skill-badge-item" key={skill}>
+              <span className="skill-badge-dot"></span>
+              <span>{skill}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CAREER & EDUCATION TIMELINE */}
+      <section className="about-timeline-section">
+        <div className="timeline-col">
+          <div className="col-header">
+            <span className="col-icon"><BriefcaseIcon size={22} /></span>
+            <h2>Work Experience</h2>
+          </div>
+          <div className="timeline-cards">
+            <div className="timeline-card-item">
+              <span className="time-period">2023 – Present</span>
+              <h3>Backend Developer</h3>
+              <span className="company-name">Webskitters Private Limited</span>
+              <p>
+                Leading backend architecture for client and enterprise products. Building scalable microservices, WebSockets real-time systems, and payment gateway integrations using NestJS & MongoDB.
+              </p>
+            </div>
+            <div className="timeline-card-item">
+              <span className="time-period">2021 – 2023</span>
+              <h3>Junior Backend Developer</h3>
+              <span className="company-name">Webskitters Private Limited</span>
+              <p>
+                Developed RESTful API endpoints, integrated relational PostgreSQL databases using TypeORM, and optimized database queries for performance.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="timeline-col">
+          <div className="col-header">
+            <span className="col-icon"><GraduationCapIcon size={22} /></span>
+            <h2>Education & Focus</h2>
+          </div>
+          <div className="timeline-cards">
+            <div className="timeline-card-item">
+              <span className="time-period">2018 – 2021</span>
+              <h3>Bachelor of Computer Applications (BCA)</h3>
+              <span className="company-name">Abs Academy College</span>
+              <p>
+                Specialized in Computer Science fundamentals, Software Engineering, Object Oriented Programming, Data Structures, and Database Management Systems.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -42,3 +42,38 @@ export function useContent() {
 
   return content;
 }
+
+export function useProject(slug) {
+  const { projects } = useContent();
+  const [project, setProject] = useState(
+    () => projects.find(p => p.slug === slug || p.id === slug) || fallbackProjects.find(p => p.slug === slug)
+  );
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    if (!slug) return;
+    
+    // First try matching from existing cached list
+    const foundInList = projects.find(p => p.slug === slug || p.id === slug);
+    if (foundInList) {
+      setProject(foundInList);
+      setLoading(false);
+    }
+
+    fetch(`/api/projects/${slug}`)
+      .then(res => res.ok ? res.json() : Promise.reject())
+      .then(data => {
+        if (!active || !data.ok || !data.project) return;
+        setProject(data.project);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => { active = false; };
+  }, [slug, projects]);
+
+  return { project, loading };
+}
