@@ -9,7 +9,6 @@ export default function ProjectPage() {
     <div className="projects-page-container">
       {/* HERO HEADER */}
       <section className="projects-hero">
-        <span className="sub-tag">• Featured Works</span>
         <h1>Backend Systems & API Engineering</h1>
         <p>
           A detailed look at production-grade backend projects, microservices, database architectures, and real-time platforms.
