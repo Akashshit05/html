@@ -13,8 +13,6 @@ import {
   GithubIcon, LinkedinIcon, TwitterIcon, EmailIcon 
 } from './components/Icons.jsx';
 
-import './portfolio.css';
-
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -188,4 +186,3 @@ export default function App() {
     </div>
   );
 }
-
